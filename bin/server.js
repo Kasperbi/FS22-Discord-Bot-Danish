@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const merge = require('deepmerge');
 const fs = require('fs');
-const eur_kurs = '7.5'
+const eur_kurs = '7.46'
 const {
   Client, GatewayIntentBits, PermissionsBitField, ChannelType,
 } = require('discord.js');
@@ -68,7 +68,7 @@ const getUpdateString = (
   // if the online status has changed, and the server is now online
   if (online && !previousServer.online) {
     // send udpated server status
-    string += ':tractor: The server is **back online**!\n';
+    string += ':tractor: Serveren Er **Igen Online**!\n';
   }
 
   const dlcString = getModString(newData, previousMods, true);
@@ -84,7 +84,7 @@ const getUpdateString = (
     console.log('Previous:', previousServer.game, previousServer.version, previousServer.name, previousServer.mapName, previousDlcCount, previousModCount);
     console.log('Current:', game, version, serverName, mapName, dlcCount, modCount);
 
-    string += `:tractor: The server **${serverName}** has been updated: ${game} (${version}), Map: ${mapName}, DLC${dlcCount !== 1 ? 's' : ''}: ${dlcCount}, Mod${modCount !== 1 ? 's' : ''}: ${modCount}\n`;
+    string += `:tractor: Serveren **${serverName}** Er Blevet Opdateret: ${game} (${version}), Map: ${mapName}, DLC${dlcCount !== 1 ? 's' : ''}: ${dlcCount}, Mods${modCount !== 1 ? 's' : ''}: ${modCount}\n`;
     string += dlcString;
     string += modString;
   }
@@ -103,12 +103,12 @@ const getUpdateString = (
       directionEmoji = ':arrow_down_small:';
       moneyDifferenceSign = '-';
     }
-    let dk_money = money * 7.46;
-    let dk_money_diff = moneyDifferenceAbsolute * 7.46;
-    string += `:moneybag: Savegame Money: ${directionEmoji} **${dk_money.toLocaleString('en-GB')} kr** (${moneyDifferenceSign}${dk_money_diff.toLocaleString('en-GB')} kr).\n`;
+    let dk_money = Math.round(money * eur_kurs);
+    let dk_money_diff = Math.round(moneyDifferenceAbsolute * eur_kurs);
+    string += `:moneybag: Savegame Penge: ${directionEmoji} **${dk_money.toLocaleString('en-GB')} kr** (${moneyDifferenceSign}${dk_money_diff.toLocaleString('en-GB')} kr).\n`;
   }
   if (previousCareerSavegame.playTime !== playTime) {
-    string += `:watch: Savegame Play Time: **${formatMinutes(playTime)}**.\n`;
+    string += `:watch: Savegame Spillet Tid: **${formatMinutes(playTime)}**.\n`;
   }
 
   const { numUsed, capacity, players } = newData.slots;
@@ -138,17 +138,17 @@ const getUpdateString = (
       .reduce((obj, player) => Object.assign(obj, { [player.name]: player }), {});
 
     if (Object.keys(newPlayers).length > 0 || Object.keys(leftPlayers).length > 0) {
-      string += `:farmer: **${numUsed}** of ${capacity} players online${(numUsed > 0 ? `: **${formatPlayers(players)}**` : '')} (${getTimestamp()}).\n`;
+      string += `:farmer: **${numUsed}** ud af ${capacity} spiller online${(numUsed > 0 ? `: **${formatPlayers(players)}**` : '')} (${getTimestamp()}).\n`;
     }
 
     if (Object.keys(newPlayers).length > 0) {
       console.log(newPlayers);
-      string += `    :arrow_right: **${formatPlayers(newPlayers)}** just joined the server.\n`;
+      string += `    :arrow_right: **${formatPlayers(newPlayers)}** har lige starte sit arbejde på gården.\n`;
     }
 
     Object.values(leftPlayers).forEach(({ name: playerName, firstSeen }) => {
       const playTimeInMinutes = Math.round((new Date().getTime() - firstSeen) / 60000);
-      string += `    :arrow_left: **${playerName}** just left the server after playing for **${formatMinutes(playTimeInMinutes)}**.\n`;
+      string += `    :arrow_left: **${playerName}** holder fri fra gården efter **${formatMinutes(playTimeInMinutes)}**.\n`;
     });
   }
 
@@ -213,7 +213,7 @@ const update = () => {
 
         if (previouslyUnreachable) {
           if (process.env.FS22_BOT_DISABLE_UNREACHABLE_FOUND_MESSAGES !== 'true') {
-            sendMessage(':thumbsup: The server has been **found**.');
+            sendMessage(':thumbsup: Serveren er igen **online**.');
           }
           db.server.unreachable = false;
         }
@@ -230,7 +230,7 @@ const update = () => {
           db = data;
         } else {
           if (previousServer.online) {
-            sendMessage(':tools: The server has gone **offline**.');
+            sendMessage(':tools: Serveren er gået **offline**.');
           }
 
           db.server.online = false;
@@ -258,7 +258,7 @@ const update = () => {
       client.user.setActivity('unknown');
       if (!db.server.unreachable) {
         if (process.env.FS22_BOT_DISABLE_UNREACHABLE_FOUND_MESSAGES !== 'true') {
-          sendMessage(':man_shrugging: The server is **unreachable**.');
+          sendMessage(':man_shrugging: Serveren er ikke **tilgængelig**.');
         }
         db.server.unreachable = true;
         fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf8');
