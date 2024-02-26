@@ -178,7 +178,7 @@ const utils = {
 
     let tempModsString = '';
     if (newMods.length > 0) {
-      tempModsString += `${emoji} The server has **${newMods.length}** new ${modType}${newMods.length !== 1 ? 's' : ''}:\n`;
+      tempModsString += `${emoji} Serveren har **${newMods.length}** nye ${modType}${newMods.length !== 1 ? 's' : ''}:\n`;
       newMods.forEach(({
         hash, text, version: modVersion, author,
       }) => {
@@ -187,7 +187,7 @@ const utils = {
     }
 
     if (updatedMods.length > 0) {
-      tempModsString += `${emoji} The server has **${updatedMods.length}** updated ${modType}${updatedMods.length !== 1 ? 's' : ''}:\n`;
+      tempModsString += `${emoji} Serveren har **${updatedMods.length}** opdateret ${modType}${updatedMods.length !== 1 ? 's' : ''}:\n`;
       updatedMods.forEach(({
         hash, text, version: modVersion, author,
       }) => {
@@ -196,7 +196,7 @@ const utils = {
     }
 
     if (removedMods.length > 0) {
-      tempModsString += `${emoji} The server had **${removedMods.length}** ${modType}${removedMods.length !== 1 ? 's' : ''} removed:\n`;
+      tempModsString += `${emoji} Serveren har fået **${removedMods.length}** ${modType}${removedMods.length !== 1 ? 's' : ''} fjernet:\n`;
       removedMods.forEach(({
         hash, text, version: modVersion, author,
       }) => {
@@ -209,13 +209,13 @@ const utils = {
         string += tempModsString;
       } else {
         if (newMods.length > 0) {
-          string += `${emoji} The server has **${newMods.length}** new ${modType}${newMods.length !== 1 ? 's' : ''}.\n`;
+          string += `${emoji} Serveren har **${newMods.length}** nye ${modType}${newMods.length !== 1 ? 's' : ''}.\n`;
         }
         if (updatedMods.length > 0) {
-          string += `${emoji} The server has **${updatedMods.length}** updated ${modType}${updatedMods.length !== 1 ? 's' : ''}.\n`;
+          string += `${emoji} Serveren har **${updatedMods.length}** opdateret ${modType}${updatedMods.length !== 1 ? 's' : ''}.\n`;
         }
         if (removedMods.length > 0) {
-          string += `${emoji} The server had **${removedMods.length}** ${modType}${removedMods.length !== 1 ? 's' : ''} removed.\n`;
+          string += `${emoji} Serveren har fået **${removedMods.length}** ${modType}${removedMods.length !== 1 ? 's' : ''} fjernet.\n`;
         }
       }
     }
