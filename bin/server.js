@@ -84,7 +84,7 @@ const getUpdateString = (
     console.log('Previous:', previousServer.game, previousServer.version, previousServer.name, previousServer.mapName, previousDlcCount, previousModCount);
     console.log('Current:', game, version, serverName, mapName, dlcCount, modCount);
 
-    string += `:tractor: Serveren **${serverName}** Er Blevet Opdateret: ${game} (${version}), Map: ${mapName}, DLC${dlcCount !== 1 ? 's' : ''}: ${dlcCount}, Mod${modCount !== 1 ? 's' : ''}: ${modCount}\n`;
+    string += `:tractor: Serveren **${serverName}** Er Blevet Opdateret: ${game} (${version}), **Map**: ${mapName}, **DLC${dlcCount !== 1 ? 's' : ''}**: ${dlcCount}, **Mod${modCount !== 1 ? 's' : ''}**: ${modCount}\n`;
     string += dlcString;
     string += modString;
   }
