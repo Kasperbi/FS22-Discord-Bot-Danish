@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const merge = require('deepmerge');
 const fs = require('fs');
+const eur_kurs = '7.5'
 const {
   Client, GatewayIntentBits, PermissionsBitField, ChannelType,
 } = require('discord.js');
@@ -102,7 +103,9 @@ const getUpdateString = (
       directionEmoji = ':arrow_down_small:';
       moneyDifferenceSign = '-';
     }
-    string += `:moneybag: Savegame Money: ${directionEmoji} **${money.toLocaleString('en-GB')}** (${moneyDifferenceSign}${moneyDifferenceAbsolute.toLocaleString('en-GB')}).\n`;
+    let dk_money = money * 7.46;
+    let dk_money_diff = moneyDifferenceAbsolute * 7.46;
+    string += `:moneybag: Savegame Money: ${directionEmoji} **${dk_money.toLocaleString('en-GB')} kr** (${moneyDifferenceSign}${dk_money_diff.toLocaleString('en-GB')} kr).\n`;
   }
   if (previousCareerSavegame.playTime !== playTime) {
     string += `:watch: Savegame Play Time: **${formatMinutes(playTime)}**.\n`;
