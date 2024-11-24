@@ -143,12 +143,12 @@ const getUpdateString = (
 
     if (Object.keys(newPlayers).length > 0) {
       console.log(newPlayers);
-      string += `    :arrow_right: **${formatPlayers(newPlayers)}** har lige starte sit arbejde på gården.\n`;
+      string += `    :arrow_right: __**${formatPlayers(newPlayers)}**__ har lige starte sit arbejde på gården.\n`;
     }
 
     Object.values(leftPlayers).forEach(({ name: playerName, firstSeen }) => {
       const playTimeInMinutes = Math.round((new Date().getTime() - firstSeen) / 60000);
-      string += `    :arrow_left: **${playerName}** holder fri fra gården efter **${formatMinutes(playTimeInMinutes)}**.\n`;
+      string += `    :arrow_left: __**${playerName}**__ holder fri fra gården efter **${formatMinutes(playTimeInMinutes)}**.\n`;
     });
   }
 
