@@ -138,7 +138,7 @@ const getUpdateString = (
       .reduce((obj, player) => Object.assign(obj, { [player.name]: player }), {});
 
     if (Object.keys(newPlayers).length > 0 || Object.keys(leftPlayers).length > 0) {
-      string += `:farmer: **${numUsed}** ud af ${capacity} spiller online${(numUsed > 0 ? `: **[1;2m[1;31m${formatPlayers(𝗽𝗹𝗮𝘆𝗲𝗿𝘀)}[0m[0m**` : '')} (${getTimestamp()}).\n`;
+      string += `:farmer: **${numUsed}** ud af ${capacity} spiller online${(numUsed > 0 ? `: **[1;2m[1;31m${formatPlayers(players)}[0m[0m**` : '')} (${getTimestamp()}).\n`;
     }
 
     if (Object.keys(newPlayers).length > 0) {
